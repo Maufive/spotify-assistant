@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { ScrapeContext } from "./ScrapeContext";
+import { LyricsContext } from "./Context";
 
 export default function Lyrics() {
-	const scrapeData = useContext(ScrapeContext);
+	const scrapeData = useContext(LyricsContext);
 	const { lyrics } = scrapeData.lyrics.lyrics;
 	const markup = function() {
 		return { __html: lyrics };
