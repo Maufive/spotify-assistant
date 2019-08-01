@@ -1,36 +1,18 @@
 import { useEffect, useState } from "react";
-import { ScrapeProvider } from "./ScrapeContext";
-
-function useLyrics() {
-	const [lyrics, useLyrics] = useState({
-		lyrics: ""
-	});
-
-	// fetch function
-	async function fetchLyrics() {
-		const response = await fetch("http://localhost:2093/lyrics");
-		const data = await response.json();
-		console.log(data);
-		useLyrics(data);
-	}
-
-	useEffect(() => {
-		console.log("Mounting or updating!");
-		fetchLyrics();
-	}, []);
-
-	return { lyrics, fetchLyrics };
-}
+import { TokenProvider } from "./Context";
+import useLogin from "./hooks/useLogin";
 
 export default function Page({ children }) {
-	const lyrics = useLyrics();
+	// const lyrics = useLyrics();
+	const token = useLogin();
 	return (
-		<ScrapeProvider
+		<TokenProvider
 			value={{
-				lyrics
+				useLogin,
+				token
 			}}
 		>
 			<div className="page">{children}</div>
-		</ScrapeProvider>
+		</TokenProvider>
 	);
 }
