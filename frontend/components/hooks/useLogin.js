@@ -26,6 +26,5 @@ export default function useLogin() {
 			useToken(token);
 		}
 	}, []);
-
 	return { token };
 }
