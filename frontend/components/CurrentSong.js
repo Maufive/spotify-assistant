@@ -7,7 +7,6 @@ export default function CurrentSong() {
 	const context = useContext(TokenContext);
 	const { token } = context;
 	const { song } = useCurrentSong(token);
-	console.log(song);
 	return (
 		<div>
 			{song.is_playing && (
