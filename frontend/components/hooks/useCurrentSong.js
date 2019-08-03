@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function useCurrentSong(token) {
 	const [song, useSong] = useState({
-		song: {}
+		song: null
 	});
 
 	// fetch function
@@ -15,8 +15,16 @@ export default function useCurrentSong(token) {
 				}
 			}
 		);
-		const data = await response.json();
-		useSong(data);
+
+		if (response.status === 200) {
+			const data = await response.json();
+			useSong(data);
+			return;
+		}
+
+		useSong({
+			song: null
+		});
 	}
 
 	useEffect(() => {
