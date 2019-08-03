@@ -12,16 +12,12 @@ export default function useGenius(query) {
 	// fetch function
 	async function authGenius(query) {
 		if (query.song === null) {
-			console.log("NULL!!!");
 			return;
 		}
 
 		if (query.is_playing) {
 			const artist = query.item.artists[0].name;
 			const song = query.item.name;
-
-			console.log(song);
-			console.log(artist);
 
 			const data = await axios.get(`http://localhost:2093/search`, {
 				params: {
