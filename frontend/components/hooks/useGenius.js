@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useGenius(query) {
+export default function useGenius(spotify) {
 	const [genius, useGenius] = useState({
 		genius: {
 			data: {},
@@ -10,14 +10,14 @@ export default function useGenius(query) {
 	});
 
 	// fetch function
-	async function authGenius(query) {
-		if (query.song === null) {
+	async function fetchGenius(spotify) {
+		if (spotify.song === null) {
 			return;
 		}
 
-		if (query.is_playing) {
-			const artist = query.item.artists[0].name;
-			const song = query.item.name;
+		if (spotify.is_playing) {
+			const artist = spotify.item.artists[0].name;
+			const song = spotify.item.name;
 
 			const data = await axios.get(`http://localhost:2093/search`, {
 				params: {
@@ -43,8 +43,8 @@ export default function useGenius(query) {
 	}
 
 	useEffect(() => {
-		authGenius(query);
-	}, [query]);
+		fetchGenius(spotify);
+	}, [spotify]);
 
 	return { genius };
 }
