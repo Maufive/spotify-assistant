@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { useContext } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import { Navigation } from "./Navigation/Navigation";
 import NProgress from "nprogress";
 import { TokenProvider } from "./Context";
 import useLogin from "./hooks/useLogin";
@@ -21,32 +22,36 @@ Router.onRouteChangeError = () => {
 
 const theme = {
 	yellow: "#FFC600",
+	yellowTwo: "#ffcb14",
+	yellowTints: {
+		light: "#ffcc1a",
+		lighter: "#ffd133",
+		lightest: "#ffd74d",
+		dark: "#e6b200",
+		darker: "#cc9e00",
+		darkest: "#b38b00"
+	},
 	black: "#1E1E20",
-	grey: "#2F3135",
+	grey: "#323232",
 	anotherGrey: "#818181",
 	white: "#F9FAFE",
-
-	maxWidth: "1200px",
+	whiteGrey: "#ccc",
+	maxWidth: "1300px",
 	mobileBreakpoint: "768px",
 	bs: "0 5px 24px 0 rgba(0, 0, 0, 0.06)",
 	bsHard: "1px 3px 3px 0px rgba(0, 0, 0, 0.2)",
-	bRadius: "5px",
-	titleGradient: {
-		from: "#ffc600",
-		to: "#ff9000",
-		last: "#D19800",
-		asdf: "lime"
-	}
+	bRadius: "5px"
 };
 
 const StyledPage = styled.div``;
 
 export const Inner = styled.div`
 	min-height: 100vh;
+	width: ${theme.maxWidth};
 `;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,400,700&display=swap');
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 	@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap');
 
@@ -99,6 +104,7 @@ export default function Page({ children }) {
 			<StyledPage>
 				<GlobalStyle />
 				<Meta />
+				<Navigation />
 				<Inner>{children}</Inner>
 			</StyledPage>
 		</ThemeProvider>
