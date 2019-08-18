@@ -31,21 +31,20 @@ const flow = keyframes`
 const Title = styled(motion.h1)`
 	font-size: 4rem;
 	text-transform: uppercase;
-	font-weight: 700;
-	display: inline-block;
-	background: linear-gradient(
+	font-weight: 400;
+	/* background: linear-gradient(
 		to right,
-		${props => props.theme.titleGradient.from},
-		${props => props.theme.titleGradient.to}
+		${props => props.theme.yellowTints.lighter},
+		${props => props.theme.yellowTints.darker}
 	);
 	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-	-webkit-text-fill-color: transparent;
-	letter-spacing: 2px;
+	background-clip: text; */
+	color: ${props => props.theme.white};
+	/* color: transparent; */
+	/* -webkit-text-fill-color: transparent; */
+	letter-spacing: 4px;
 	margin-block-start: 0px;
-	margin-top: 20rem; // Change this later
-
+	margin: 20rem 0 10rem 0; // Change this later
 	animation: ${flow} 2s ease-in-out infinite;
 	background-size: 300%;
 `;
