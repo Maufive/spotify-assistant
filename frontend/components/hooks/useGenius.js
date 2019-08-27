@@ -1,13 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useGenius(spotify) {
-	const [genius, useGenius] = useState({
-		genius: {
-			data: {},
-			lyrics: null
-		}
-	});
+export const useLyrics = lyricsUrl => {
+	const [lyrics, setLyrics] = useState({ lyrics: null });
+
+	async function fetchLyrics(url) {
+		const lyrics = await axios.get(`http://localhost:2093/lyrics/lyrics`, {
+			params: {
+				lyricsURL: url
+			}
+		});
+
+		setLyrics(lyrics);
+	}
+
+	useEffect(() => {
+		fetchLyrics(lyricsUrl);
+	}, [lyricsUrl]);
+
+	return { lyrics };
+};
+
+export const useGenius = spotify => {
+	const [genius, useGenius] = useState({ genius: null });
 
 	// fetch function
 	async function fetchGenius(spotify) {
@@ -19,26 +34,16 @@ export default function useGenius(spotify) {
 			const artist = spotify.item.artists[0].name;
 			const song = spotify.item.name;
 
-			const data = await axios.get(`http://localhost:2093/search`, {
+			const data = await axios.get(`http://localhost:2093/lyrics/search`, {
 				params: {
 					artist,
 					song
 				}
 			});
-
-			const lyricsURL = data.data.response.song.path;
-			const lyrics = await axios.get(`http://localhost:2093/lyrics`, {
-				params: {
-					lyricsURL
-				}
-			});
-
-			const songData = {
-				data: { ...data.data },
-				lyrics: { ...lyrics.data }
-			};
-
-			useGenius(songData);
+			if (data.data.meta.status === 200) {
+				useGenius(data.data);
+			}
+			return;
 		}
 	}
 
@@ -47,4 +52,4 @@ export default function useGenius(spotify) {
 	}, [spotify]);
 
 	return { genius };
-}
+};

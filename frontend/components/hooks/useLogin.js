@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import Router from "next/router";
 import { StateContext } from "../Context";
+import cookie from "js-cookie";
 
 export default function useLogin() {
 	const { setAccessToken, setRefreshToken, setUserLoggedIn } = useContext(
@@ -26,6 +27,7 @@ export default function useLogin() {
 		Router.push("/playback");
 		// Set token to global state
 		if (hash) {
+			cookie.set("token", hash.access_token, { expires: 1 });
 			setAccessToken(hash.access_token);
 			setRefreshToken(hash.refresh_token);
 			useToken(hash.access_token);
