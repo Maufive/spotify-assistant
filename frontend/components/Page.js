@@ -31,12 +31,17 @@ const theme = {
 		darker: "#cc9e00",
 		darkest: "#b38b00"
 	},
-	black: "#1E1E20",
+	whites: {
+		light: "#fff",
+		dark: "#eee"
+	},
+	black: "#212121",
+	darkGrey: "#1E1E20",
 	grey: "#323232",
 	anotherGrey: "#818181",
 	white: "#F9FAFE",
 	whiteGrey: "#ccc",
-	maxWidth: "1300px",
+	maxWidth: "1290px",
 	mobileBreakpoint: "768px",
 	bs: "0 5px 24px 0 rgba(0, 0, 0, 0.06)",
 	bsHard: "1px 3px 3px 0px rgba(0, 0, 0, 0.2)",
@@ -46,8 +51,9 @@ const theme = {
 const StyledPage = styled.div``;
 
 export const Inner = styled.div`
-	min-height: 100vh;
+	background: ${theme.black};
 	width: ${theme.maxWidth};
+	min-height: 100vh;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -60,7 +66,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 10px;
     font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif, sans-serif;
 		-webkit-font-smoothing: antialiased !important;
-
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -70,6 +75,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-size: 1.5rem;
 		line-height: 2;
+		color: ${theme.whites.dark};	
   }
   a {
     text-decoration: none;
@@ -84,6 +90,13 @@ const GlobalStyle = createGlobalStyle`
 
 	h1 {
 		font-family: "Montserrat";
+	}
+	h2 {
+		font-size: 2.6rem;
+	}
+
+	h3 {
+		font-size: 2.4rem;
 	}
 
 	input[type="text"],
