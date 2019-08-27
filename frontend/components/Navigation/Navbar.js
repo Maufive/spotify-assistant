@@ -1,30 +1,36 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import { MenuItem } from "./MenuItem";
+import { StateContext } from "../Context";
+import MenuItem from "./MenuItem";
 import { UserIcon, SongIcon, LogoutIcon, ArtistIcon, PlayIcon } from "../SVG";
 
 const variants = {
 	open: {
+		transitionEnd: { display: "block" },
 		transition: { staggerChildren: 0.07, delayChildren: 0.2 }
 	},
 	closed: {
+		transitionEnd: { display: "none" },
 		transition: { staggerChildren: 0.05, staggerDirection: -1 }
 	}
 };
 
-export const Navbar = () => (
-	<motion.ul variants={variants}>
-		{items.map(item => (
-			<MenuItem
-				key={item.id}
-				i={item.id}
-				path={item.path}
-				icon={item.icon}
-				title={item.title}
-			/>
-		))}
-	</motion.ul>
-);
+export const Navbar = () => {
+	const { isUserLoggedIn } = useContext(StateContext);
+	return (
+		<motion.ul variants={variants}>
+			{items.map(item => (
+				<MenuItem
+					key={item.id}
+					i={item.id}
+					path={item.path}
+					icon={item.icon}
+					title={item.title}
+				/>
+			))}
+		</motion.ul>
+	);
+};
 
 const items = [
 	{

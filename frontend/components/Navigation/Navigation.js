@@ -1,6 +1,7 @@
 // https://codesandbox.io/s/framer-motion-side-menu-mx2rw?fontsize=14&module=%2Fsrc%2FExample.tsx
 import * as React from "react";
 import { useRef } from "react";
+import Router from "next/router";
 import styled from "styled-components";
 import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "./use-dimensions";
@@ -37,19 +38,11 @@ const Nav = styled(motion.nav)`
 	}
 
 	ul {
-		padding: 25px;
+		padding: 25px 0;
 		position: absolute;
 		top: 100px;
-		width: 280px;
-	}
-
-	li {
-		list-style: none;
-		margin-bottom: 20px;
-		display: flex;
 		width: 100%;
-		align-items: center;
-		cursor: pointer;
+	}
 
 		div {
 			display: flex;
