@@ -16,7 +16,8 @@ router.get("/login", (req, res, next) => {
 	res.cookie(stateKey, state);
 
 	// application requests authorization
-	const scope = "user-read-private user-read-email user-read-currently-playing";
+	const scope =
+		"user-read-private user-read-email user-read-currently-playing user-top-read";
 	res.redirect(
 		"https://accounts.spotify.com/authorize?" +
 			querystring.stringify({

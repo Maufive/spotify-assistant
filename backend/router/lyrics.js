@@ -27,8 +27,9 @@ router.get("/search", async (req, res, next) => {
 });
 
 router.get("/lyrics", async (req, res, next) => {
+	const { lyricsURL } = req.query;
 	const lyricsBaseURL = "https://genius.com";
-	const url = `${lyricsBaseURL + req.query.lyricsURL}`;
+	const url = `${lyricsBaseURL + lyricsURL}`;
 	const lyricsHTML = await getHTML(url);
 	const lyrics = await getLyrics(lyricsHTML);
 	res.send({ lyrics });
