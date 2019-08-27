@@ -1,9 +1,8 @@
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import Page, { Inner } from "../components/Page";
 import LoginSpotify from "../components/auth/AuthSpotify";
-import { TokenConsumer } from "../components/Context";
-import DisplayData from "../components/DisplayData";
 
 const LandingpageBackground = styled(Inner)`
 	background: linear-gradient(135deg, #303134 0%, #202022 100%);
@@ -49,21 +48,15 @@ const Title = styled(motion.h1)`
 	background-size: 300%;
 `;
 
-export default function Home() {
-	return (
-		<Page>
-			<LandingpageBackground>
-				<Title>SPOTIFY ASSISTANT</Title>
-				<LoginSpotify />
-			</LandingpageBackground>
-		</Page>
-	);
-}
-
-{
-	/* {state => (
-	<div>
-		{state.genius.data && <DisplayData genius={state.genius} />}
-	</div>
-)} */
+export default class Home extends React.Component {
+	render() {
+		return (
+			<Page>
+				<LandingpageBackground>
+					<Title>SPOTIFY ASSISTANT</Title>
+					<LoginSpotify />
+				</LandingpageBackground>
+			</Page>
+		);
+	}
 }
