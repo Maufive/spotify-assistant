@@ -1,10 +1,6 @@
-import { useContext } from "react";
 import Link from "next/link";
-import axios from "axios";
-import { TokenContext } from "../Context";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import useLogin from "../hooks/useLogin";
 import { LoginButton } from "../Buttons";
 
 export const authEndpoint = "https://accounts.spotify.com/authorize?";
@@ -23,14 +19,6 @@ const Container = styled(motion.div)`
 `;
 
 export default function LoginSpotify() {
-	// const { token } = useLogin();
-
-	const requestLogin = async () => {
-		const response = await axios
-			.get("http://localhost:2093/auth/login")
-			.then(result => console.log(result));
-	};
-
 	return (
 		<Container
 			whileHover={{ y: "-3px" }}
