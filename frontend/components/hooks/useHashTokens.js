@@ -3,7 +3,7 @@ import Router from "next/router";
 import { StateContext } from "../Context";
 import cookie from "js-cookie";
 
-export default function useLogin() {
+export default function useHashTokens() {
 	const { setAccessToken, setRefreshToken, setUserLoggedIn } = useContext(
 		StateContext
 	);
@@ -24,10 +24,11 @@ export default function useLogin() {
 				return initial;
 			}, {});
 
-		Router.push("/playback");
+		// Router.push("/profile");
 		// Set token to global state
 		if (hash) {
-			cookie.set("token", hash.access_token, { expires: 1 });
+			if (hash.access_token)
+				cookie.set("token", hash.access_token, { expires: 1 });
 			setAccessToken(hash.access_token);
 			setRefreshToken(hash.refresh_token);
 			useToken(hash.access_token);

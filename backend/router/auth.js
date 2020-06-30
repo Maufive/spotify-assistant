@@ -17,7 +17,7 @@ router.get("/login", (req, res, next) => {
 
 	// application requests authorization
 	const scope =
-		"user-read-private user-read-email user-read-currently-playing user-top-read";
+		"user-read-private user-read-email user-read-currently-playing user-top-read user-read-recently-played user-modify-playback-state";
 	res.redirect(
 		"https://accounts.spotify.com/authorize?" +
 			querystring.stringify({
@@ -62,7 +62,7 @@ router.get("/callback", (req, res, next) => {
 			json: true
 		};
 
-		console.log(authOptions);
+		// ss
 
 		request.post(authOptions, (error, response, body) => {
 			if (!error && response.statusCode === 200) {
@@ -84,7 +84,7 @@ router.get("/callback", (req, res, next) => {
 
 				// skicka token till klienten via querystring
 				res.redirect(
-					"http://localhost:3000/playback#" +
+					"http://localhost:3000/#" +
 						querystring.stringify({
 							access_token: access_token,
 							refresh_token: refresh_token

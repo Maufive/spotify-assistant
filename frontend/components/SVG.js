@@ -1,8 +1,8 @@
 export const UserIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="30"
-		height="30"
+		width="20"
+		height="20"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="#f9fafe"
@@ -19,8 +19,8 @@ export const UserIcon = (
 export const LogoutIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="30"
-		height="30"
+		width="20"
+		height="20"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="#f9fafe"
@@ -35,8 +35,8 @@ export const LogoutIcon = (
 export const SongIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="30"
-		height="30"
+		width="20"
+		height="20"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="#f9fafe"
@@ -53,8 +53,8 @@ export const SongIcon = (
 export const ArtistIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="30"
-		height="30"
+		width="20"
+		height="20"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="#f9fafe"
@@ -69,36 +69,20 @@ export const ArtistIcon = (
 	</svg>
 );
 
-export const PlayIcon = (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="30"
-		height="30"
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="#f9fafe"
-		strokeWidth="1.3"
-		strokeLinecap="square"
-		strokeLinejoin="arcs"
-	>
-		<circle cx="12" cy="12" r="10" />
-		<polygon points="10 8 16 12 10 16 10 8" />
-	</svg>
-);
-
 export const SpeakerIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="25"
-		height="25"
+		width="20"
+		height="20"
 		viewBox="0 0 24 24"
 		fill="none"
-		stroke="#f9fafe"
+		stroke="#eee"
 		strokeWidth="1"
-		strokeLinecap="square"
-		strokeLinejoin="arcs"
+		strokeLinecap="round"
+		strokeLinejoin="round"
 	>
 		<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-		<path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+		<path className="inner" d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+		<path className="outer" d="M19.07 4.93a10 10 0 0 1 0 14.14" />
 	</svg>
 );

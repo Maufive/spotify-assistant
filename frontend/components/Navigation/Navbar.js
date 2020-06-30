@@ -2,7 +2,14 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { StateContext } from "../Context";
 import MenuItem from "./MenuItem";
-import { UserIcon, SongIcon, LogoutIcon, ArtistIcon, PlayIcon } from "../SVG";
+import {
+	UserIcon,
+	SongIcon,
+	LogoutIcon,
+	ArtistIcon,
+	PlayIcon,
+	SpeakerIcon
+} from "../SVG";
 
 const variants = {
 	open: {
@@ -42,7 +49,7 @@ const items = [
 	{
 		path: "/playback",
 		title: "Playback",
-		icon: PlayIcon,
+		icon: SpeakerIcon,
 		id: 2
 	},
 	{

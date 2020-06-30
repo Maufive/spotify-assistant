@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { StateContext } from "../Context";
 
-export default function useCurrentSong() {
+export default function useCurrentSong(accessToken) {
+	const { setSong } = useContext(StateContext);
 	const [song, useSong] = useState({
 		song: null
 	});
 
-	const { accessToken } = useContext(StateContext);
+	// const { accessToken } = useContext(StateContext);
 	// const accessToken =
 	// 	"BQDVaLeVVfgovgv8QP0cmZrbIcCd7uCYoh5qqZqoZjwsyiL6xryD6sdvkqxFhMECRgkE23No0vddpHlh_WYiVZK_4i8sDBs1kUMXuWGHdrkW69ee7SHiNDJ5n9JISN1jCk2xxxxUQA7G3RXlzKPGkup2JaWr1Z96YQ&refresh_token=AQD4lSR28vLKz9y-aMCYrTuOJgVmDJgMK-_QCuV8zdT7_SAeX1dYZA4T_HRL3YAdeKbOJue5_K8Ol0S4T93hDn72PgjhH6l3ZBk6w-2uJlsoKLhxtK8D9voraKnf9e9BMrOnaQ";
 

@@ -1,12 +1,9 @@
+import React, { useContext } from "react";
 import Router from "next/router";
-import { useContext } from "react";
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
-import { Navigation } from "./Navigation/Navigation";
+import { StateContext } from "./Context";
+import Navigation from "./Navigation/Navigation";
 import NProgress from "nprogress";
-import { TokenProvider } from "./Context";
-import useLogin from "./hooks/useLogin";
-import useCurrentSong from "./hooks/useCurrentSong";
-import useGenius from "./hooks/useGenius";
 import Meta from "./Meta";
 
 Router.onRouteChangeStart = () => {
@@ -32,15 +29,21 @@ const theme = {
 		darkest: "#b38b00"
 	},
 	whites: {
-		light: "#fff",
-		dark: "#eee"
+		light: "#F9FAFE",
+		dark: "#eee",
+		darker: "#d9d9d9",
+		darkest: "#c1c1c1",
+		grey: "#a0a0a0"
 	},
-	black: "#212121",
-	darkGrey: "#1E1E20",
-	grey: "#323232",
-	anotherGrey: "#818181",
-	white: "#F9FAFE",
-	whiteGrey: "#ccc",
+	greys: {
+		black: "#080808",
+		darkest: "#101010",
+		darker: "#161616",
+		dark: "#212121",
+		light: "#303030",
+		lightest: "#424242",
+		white: "#727272"
+	},
 	maxWidth: "1290px",
 	mobileBreakpoint: "768px",
 	bs: "0 5px 24px 0 rgba(0, 0, 0, 0.06)",
@@ -48,12 +51,19 @@ const theme = {
 	bRadius: "5px"
 };
 
-const StyledPage = styled.div``;
+const Container = styled.div`
+	display: flex;
+	position: relative;
+`;
 
 export const Inner = styled.div`
-	background: ${theme.black};
-	width: ${theme.maxWidth};
+	background: ${theme.greys.black};
+	width: 100%;
 	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	margin-left: 150px;
+	padding: 0 50px;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -79,9 +89,9 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
-		color: ${theme.white};
+		color: ${theme.whites.light};
 		&:visited {
-			color: ${theme.white};
+			color: ${theme.whites.light};
 		}
   }
   button {
@@ -90,6 +100,7 @@ const GlobalStyle = createGlobalStyle`
 
 	h1 {
 		font-family: "Montserrat";
+		font-size: 4rem;
 	}
 	h2 {
 		font-size: 2.6rem;
@@ -105,32 +116,31 @@ const GlobalStyle = createGlobalStyle`
 	input[type="number"] {
 		-webkit-appearance: none;
 	}
+
+	h1, h2, h3, h4, h5, h6, p {
+		margin-block-end: 0;
+		margin-block-start: 0;
+		margin-inline-end: 0;
+		margin-inline-start: 0;
+	}
+
+	svg {
+		cursor: pointer;
+	}
 `;
 
 export default function Page({ children }) {
-	// const { token } = useLogin();
-	// const { song } = useCurrentSong(token);
-	// const { genius } = useGenius(song);
-
+	const { isUserLoggedIn } = useContext(StateContext);
 	return (
 		<ThemeProvider theme={theme}>
-			<StyledPage>
+			<>
 				<GlobalStyle />
 				<Meta />
-				<Navigation />
-				<Inner>{children}</Inner>
-			</StyledPage>
+				<Container>
+					<Navigation />
+					<Inner>{children}</Inner>
+				</Container>
+			</>
 		</ThemeProvider>
 	);
-}
-
-{
-	/* <TokenProvider
-	value={{
-		useLogin,
-		token,
-		currentSong: song,
-		genius
-	}}
-/> */
 }

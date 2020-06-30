@@ -15,6 +15,7 @@ export function StateProvider(props) {
 	const [refreshToken, setRefreshToken] = useState(null);
 	const [song, setSong] = useState(null);
 	const [lyrics, setLyrics] = useState(null);
+	const [profile, setProfile] = useState(null);
 
 	return (
 		<StateContext.Provider
@@ -28,7 +29,9 @@ export function StateProvider(props) {
 				song,
 				setSong,
 				lyrics,
-				setLyrics
+				setLyrics,
+				profile,
+				setProfile
 			}}
 		>
 			{props.children}

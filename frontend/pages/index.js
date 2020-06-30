@@ -1,15 +1,18 @@
 import React from "react";
+import { withRouter } from "next/router";
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
-import Page, { Inner } from "../components/Page";
+import { Inner } from "../components/Page";
 import LoginSpotify from "../components/auth/AuthSpotify";
+import useHashTokens from "../components/hooks/useHashTokens";
+import cookie from "js-cookie";
 
 const LandingpageBackground = styled(Inner)`
-	background: linear-gradient(135deg, #303134 0%, #202022 100%);
+	/* background: linear-gradient(135deg, #303134 0%, #202022 100%); */
 	display: flex;
 	align-items: center;
-	width: ${props => props.theme.maxWidth};
 	flex-direction: column;
+	margin-left: 0;
 `;
 
 const flow = keyframes`
@@ -28,7 +31,6 @@ const flow = keyframes`
 `;
 
 const Title = styled(motion.h1)`
-	font-size: 4rem;
 	text-transform: uppercase;
 	font-weight: 400;
 	/* background: linear-gradient(
@@ -38,25 +40,34 @@ const Title = styled(motion.h1)`
 	);
 	-webkit-background-clip: text;
 	background-clip: text; */
-	color: ${props => props.theme.white};
+	color: ${({ theme }) => theme.whites.light};
 	/* color: transparent; */
 	/* -webkit-text-fill-color: transparent; */
 	letter-spacing: 4px;
 	margin-block-start: 0px;
-	margin: 20rem 0 10rem 0; // Change this later
+	
 	animation: ${flow} 2s ease-in-out infinite;
 	background-size: 300%;
 `;
 
-export default class Home extends React.Component {
-	render() {
-		return (
-			<Page>
-				<LandingpageBackground>
-					<Title>SPOTIFY ASSISTANT</Title>
-					<LoginSpotify />
-				</LandingpageBackground>
-			</Page>
-		);
-	}
+function Home({ token, router }) {
+	useHashTokens();
+	console.log(token);
+
+	return (
+		<LandingpageBackground>
+			<Title>SPOTIFY ASSISTANT</Title>
+			<LoginSpotify />
+		</LandingpageBackground>
+	);
 }
+
+Home.getInitialProps = async function(ctx) {
+	const token = cookie.get("token");
+
+	return {
+		token
+	};
+};
+
+export default withRouter(Home);

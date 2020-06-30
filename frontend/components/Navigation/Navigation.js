@@ -1,125 +1,115 @@
 // https://codesandbox.io/s/framer-motion-side-menu-mx2rw?fontsize=14&module=%2Fsrc%2FExample.tsx
-import * as React from "react";
-import { useRef } from "react";
-import Router from "next/router";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { motion, useCycle } from "framer-motion";
-import { useDimensions } from "./use-dimensions";
-import { MenuToggle } from "./MenuToggle";
-import { Navbar } from "./Navbar";
+import { withRouter } from "next/router";
+import Link from "next/link";
+import { StateContext } from "../Context.js";
+import getProfile from "../hooks/getProfile.js";
+import {
+	UserIcon,
+	SongIcon,
+	LogoutIcon,
+	ArtistIcon,
+	PlayIcon,
+	SpeakerIcon
+} from "../SVG";
 
-const Nav = styled(motion.nav)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 300px;
+const Container = styled.div`
+	width: 150px;
+	height: 100%;
+	background: ${({ theme }) => theme.greys.darkest};
+	position: fixed;
+`;
 
-	button {
-		outline: none;
-		border: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		cursor: pointer;
-		position: absolute;
-		top: 18px;
-		left: 15px;
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		background: transparent;
+const Nav = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	padding: 20px;
+	height: 600px;
+`;
+
+const NavItem = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.5rem;
+	width: fit-content;
+	cursor: pointer;
+	transition: all 0.2s ease-out;
+
+	p {
+		color: ${({ active, theme }) =>
+			active ? theme.yellow : theme.greys.white};
+		margin-top: 1rem;
+		transition: all 0.2s ease-out;
 	}
 
-	ul,
-	li {
-		margin: 0;
-		padding: 0;
+	svg {
+		stroke: ${({ active, theme }) =>
+			active ? theme.yellow : theme.greys.white};
+		transition: all 0.2s ease-out;
 	}
 
-	ul {
-		padding: 25px 0;
-		position: absolute;
-		top: 100px;
-		width: 100%;
-	}
-
-		div {
-			display: flex;
-			align-items: center;
-			margin-right: 20px;
+	&:hover {
+		svg {
+			stroke: ${({ theme, active }) => !active && theme.whites.darkest};
 		}
-	}
 
-	.icon-placeholder {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		flex: 40px 0;
-		margin-right: 20px;
-		border: 2px solid #f86624;
-	}
-
-	.refresh {
-		padding: 10px;
-		position: absolute;
-		background: rgba(0, 0, 0, 0.4);
-		border-radius: 10px;
-		width: 20px;
-		height: 20px;
-		top: 10px;
-		right: 10px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: pointer;
+		p {
+			color: ${({ theme, active }) => !active && theme.whites.darkest};
+		}
 	}
 `;
 
-const Background = styled(motion.div)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 300px;
-	background: ${props => props.theme.yellow};
-`;
+const NavLabel = styled.p``;
 
-const sidebar = {
-	open: (height = 1000) => ({
-		clipPath: `circle(${height * 2 + 200}px at 40px 40px)`,
-		transition: {
-			type: "spring",
-			stiffness: 20,
-			restDelta: 2
-		}
-	}),
-	closed: {
-		clipPath: "circle(30px at 40px 40px)",
-		transition: {
-			delay: 0.3,
-			type: "spring",
-			stiffness: 400,
-			damping: 40
-		}
-	}
-};
+const NavLink = ({ to, icon, label, currentTab }) => (
+	<Link href={to}>
+		<NavItem active={currentTab === to}>
+			{icon}
+			<NavLabel>{label}</NavLabel>
+		</NavItem>
+	</Link>
+);
 
-export const Navigation = () => {
-	const [isOpen, toggleOpen] = useCycle(false, true);
-	const containerRef = useRef(null);
-	const { height } = useDimensions(containerRef);
+const Navigation = ({ router }) => {
+	const currentTab = router.route;
 
 	return (
-		<Nav
-			initial={false}
-			animate={isOpen ? "open" : "closed"}
-			custom={height}
-			ref={containerRef}
-		>
-			<Background variants={sidebar} />
-			<Navbar isOpen={isOpen} />
-			<MenuToggle toggle={() => toggleOpen()} />
-		</Nav>
+		<Container>
+			<Nav>
+				<NavLink
+					to="/profile"
+					icon={UserIcon}
+					label="Min Profil"
+					currentTab={currentTab}
+				/>
+
+				<NavLink
+					to="/playback"
+					icon={SpeakerIcon}
+					label="Playback"
+					currentTab={currentTab}
+				/>
+
+				<NavLink
+					to="/song"
+					icon={SongIcon}
+					label="Låt"
+					currentTab={currentTab}
+				/>
+
+				<NavLink
+					to="/artist"
+					icon={ArtistIcon}
+					label="Artist"
+					currentTab={currentTab}
+				/>
+			</Nav>
+		</Container>
 	);
 };
+
+export default withRouter(Navigation);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import useLogin from "../components/hooks/useLogin";
+import cookie from "js-cookie";
 import { useGenius } from "../components/hooks/useGenius";
 import useCurrentSong from "../components/hooks/useCurrentSong";
 import PlaybackNavigation from "../components/PlaybackNavigation";
@@ -48,7 +48,7 @@ const Details = styled.div`
 	}
 `;
 
-const AlbumCover = styled.img`
+export const Image = styled.img`
 	max-width: 200px;
 	max-height: 200px;
 	margin: 3rem;
@@ -61,10 +61,9 @@ const AboutWrapper = styled.div`
 	width: 600px;
 `;
 
-export default function PlaybackPage() {
+function PlaybackPage({ token }) {
 	const [currentTab, setCurrentTab] = useState("about");
-	useLogin();
-	const { song } = useCurrentSong();
+	const { song } = useCurrentSong(token);
 	const { genius } = useGenius(song);
 	// if (genius.response) {
 	// 	const { test } = composePlayback(genius.response.song, song.item);
@@ -76,7 +75,7 @@ export default function PlaybackPage() {
 		return (
 			<Wrapper>
 				<SongDetailsContainer>
-					<AlbumCover src={track.album.images[1].url} />
+					<Image src={track.album.images[1].url} />
 					<Details>
 						<p>NOW PLAYING:</p>
 						<h2>{track.name}</h2>
@@ -112,3 +111,13 @@ export default function PlaybackPage() {
 		);
 	}
 }
+
+PlaybackPage.getInitialProps = async function(ctx) {
+	const token = cookie.get("token");
+
+	return {
+		token
+	};
+};
+
+export default PlaybackPage;
